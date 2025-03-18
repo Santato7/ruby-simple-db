@@ -19,6 +19,12 @@ def write key, value
   File.write([last_char_path, key].join('/'), value)
 end
 
-def read
-  
+def read key
+  char_count = key.size
+  first_char = key.chars.first
+  last_char = key.chars.last
+
+  key_path = [DB, char_count, first_char, last_char, key].join '/'
+
+  File.read(key_path)
 end
