@@ -1,30 +1,16 @@
-exit if __FILE__ == $0
+require_relative 'lib/kv_store'
 
-DB = '.db'
-Dir.mkdir(DB) unless Dir.exist?(DB)
+# This is an example of how to use the KVStore class.
+# You can use this file to test the functionality of the library.
 
-def write key, value
-  char_count = key.size
-  first_char = key.chars.first
-  last_char = key.chars.last
+# Create a new instance of the KVStore
+store = KVStore.new
 
-  char_count_path = [DB, char_count].join '/'
-  first_char_path = [DB, char_count, first_char].join '/'
-  last_char_path = [DB, char_count, first_char, last_char].join '/'
+# Write a key-value pair
+store.write("my_key", "my_value")
 
-  Dir.mkdir(char_count_path) unless Dir.exist?(char_count_path)
-  Dir.mkdir(first_char_path) unless Dir.exist?(first_char_path)
-  Dir.mkdir(last_char_path) unless Dir.exist?(last_char_path)
+# Read the value for the key
+value = store.read("my_key")
 
-  File.write([last_char_path, key].join('/'), value)
-end
-
-def read key
-  char_count = key.size
-  first_char = key.chars.first
-  last_char = key.chars.last
-
-  key_path = [DB, char_count, first_char, last_char, key].join '/'
-
-  File.read(key_path)
-end
+# Print the value
+puts "The value for 'my_key' is: #{value}"

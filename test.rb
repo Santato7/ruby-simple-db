@@ -1,11 +1,12 @@
-require_relative 'main'
+require_relative 'lib/kv_store'
 
 def test_write_and_read
+  store = KVStore.new
   key = "test_key"
   value = "test_value"
 
-  write(key, value)
-  retrieved_value = read(key)
+  store.write(key, value)
+  retrieved_value = store.read(key)
 
   if retrieved_value == value
     puts "Test passed!"

@@ -1,4 +1,4 @@
-require_relative 'main'
+require_relative 'lib/kv_store'
 
 if !ARGV[0]
   puts "ruby benchmark.rb <i>"
@@ -26,10 +26,12 @@ ARGV[0].to_i.times do |i|
   array_of_values << value
 end
 
+store = KVStore.new
+
 t1_write = Time.now
 
 ARGV[0].to_i.times do |i|
-  write array_of_keys[i], array_of_values[i]
+  store.write(array_of_keys[i], array_of_values[i])
 end
 
 t2_write = Time.now
@@ -39,7 +41,7 @@ puts "Write elapsed time: #{t2_write - t1_write}"
 t1_read = Time.now
 
 ARGV[0].to_i.times do |i|
-  read array_of_keys[i]
+  store.read(array_of_keys[i])
 end
 
 t2_read = Time.now
