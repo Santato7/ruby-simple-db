@@ -27,6 +27,10 @@ class KVStore
 
     key_path = [@db_name, char_count, first_char, last_char, key].join('/')
 
-    File.read(key_path)
+    begin
+      File.read(key_path)
+    rescue Errno::ENOENT
+      nil
+    end
   end
 end
