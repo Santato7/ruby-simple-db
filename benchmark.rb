@@ -26,12 +26,22 @@ ARGV[0].to_i.times do |i|
   array_of_values << value
 end
 
-t1 = Time.now
+t1_write = Time.now
 
 ARGV[0].to_i.times do |i|
   write array_of_keys[i], array_of_values[i]
 end
 
-t2 = Time.now
+t2_write = Time.now
 
-puts "Elapsed time: #{t2 - t1}"
+puts "Write elapsed time: #{t2_write - t1_write}"
+
+t1_read = Time.now
+
+ARGV[0].to_i.times do |i|
+  read array_of_keys[i]
+end
+
+t2_read = Time.now
+
+puts "Read elapsed time: #{t2_read - t1_read}"
